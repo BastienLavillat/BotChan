@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+
 import exception.BadDimensionsException;
 import world.World;
 import world.WorldFactory;
@@ -15,12 +17,14 @@ class BotChan
         try
         {
             // Create a new world
-            world = WorldFactory.createEmptyWorld(World.DIMENSIONS_100x100);
-
             renderer = new WorldRenderer();
 
+            Dimension worldDimensions = World.DIMENSIONS_400x400;
+
+            world = WorldFactory.createEmptyWorld(worldDimensions);
             world.addRenderer(renderer);
 
+            window.setSize(worldDimensions);
             window.add(renderer);
         }
         catch(BadDimensionsException e)

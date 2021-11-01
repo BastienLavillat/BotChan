@@ -16,7 +16,7 @@ public class World
 {
     // standart world dimensions
     public static final Dimension DIMENSIONS_0x0 = new Dimension(0, 0);
-    public static final Dimension DIMENSIONS_100x100 = new Dimension(100, 100);
+    public static final Dimension DIMENSIONS_400x400 = new Dimension(400, 400);
 
 
     private final Dimension dimensions;

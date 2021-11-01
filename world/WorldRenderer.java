@@ -34,8 +34,5 @@ public class WorldRenderer extends JComponent
         // Draw floor
         g.setColor(floorColor);
         g.fillRect(offset.x, offset.y, world.getWith(), world.getHeight());
-        System.out.println("offset: " + offset);
-        System.out.println("width: " + world.getWith());
-        System.out.println("height: " + world.getHeight());
     }
 }
