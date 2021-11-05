@@ -4,7 +4,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Dimension;
+
+import javax.swing.JComponent;
+
+import java.awt.*;
 
 /**
  * Class World represent the environnement in which our Bots evolve.
@@ -12,7 +15,7 @@ import java.awt.Dimension;
  * IMPORTANT : We musn't create a world directly, using WorldFactory is much more secure.
  */
 
-public class World
+public class World extends JComponent
 {
     // standart world dimensions
     public static final Dimension DIMENSIONS_0x0 = new Dimension(0, 0);
@@ -64,5 +67,16 @@ public class World
     public int getHeight()
     {
         return (int) dimensions.getHeight();
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        Color floorColor = Color.LIGHT_GRAY;
+        Point offset = new Point(0, 0);
+
+        // Draw floor
+        g.setColor(floorColor);
+        g.fillRect(offset.x, offset.y, getWith(), getHeight());
     }
 }

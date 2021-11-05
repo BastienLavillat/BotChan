@@ -1,9 +1,12 @@
 package world.obstacle;
 
 import java.awt.Point;
-import java.awt.Color;
 
-public class Wall
+import javax.swing.JComponent;
+
+import java.awt.*;
+
+public class Wall extends JComponent
 {
     private Point pos1;
     private Point pos2;
@@ -18,5 +21,11 @@ public class Wall
         this.pos2 = pos2;
         this.thickness = thickness;
         this.color = color;
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        
     }
 }
