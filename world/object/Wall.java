@@ -1,12 +1,8 @@
-package world.obstacle;
-
-import java.awt.Point;
-
-import javax.swing.JComponent;
+package world.object;
 
 import java.awt.*;
 
-public class Wall extends JComponent
+public class Wall extends WorldObject
 {
     private Point pos1;
     private Point pos2;
@@ -24,7 +20,7 @@ public class Wall extends JComponent
     }
 
     @Override
-    public void paintComponent(Graphics g)
+    public void render(Graphics g)
     {
         
     }

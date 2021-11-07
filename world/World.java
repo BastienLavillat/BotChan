@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComponent;
+import world.object.WorldObject;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ import java.awt.*;
  * IMPORTANT : We musn't create a world directly, using WorldFactory is much more secure.
  */
 
-public class World extends JComponent
+public class World
 {
     // standart world dimensions
     public static final Dimension DIMENSIONS_0x0 = new Dimension(0, 0);
@@ -28,6 +28,9 @@ public class World extends JComponent
 
     private List<WorldRenderer> renderers;
 
+    private List<WorldObject> objects;
+
+
     public World(Dimension dimensions)
     {
         this.dimensions = dimensions;
@@ -35,6 +38,8 @@ public class World extends JComponent
         birth = Instant.now();
 
         renderers = new ArrayList<>();
+
+        objects = new ArrayList<>();
     }
 
     public World(int width, int height)
@@ -69,14 +74,8 @@ public class World extends JComponent
         return (int) dimensions.getHeight();
     }
 
-    @Override
-    public void paintComponent(Graphics g)
+    public WorldObject[] getObjects()
     {
-        Color floorColor = Color.LIGHT_GRAY;
-        Point offset = new Point(0, 0);
-
-        // Draw floor
-        g.setColor(floorColor);
-        g.fillRect(offset.x, offset.y, getWith(), getHeight());
+        return (WorldObject[]) objects.toArray();
     }
 }

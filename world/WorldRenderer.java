@@ -1,20 +1,21 @@
 package world;
 
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 
 import javax.swing.JComponent;
 
+import world.object.WorldObject;
+
 public class WorldRenderer extends JComponent
 {
-    World world;
+    private World world;
+
+    public static RenderingProperties randeringProperties;
 
     // Define the position where the world's top-left corner will be placed
-    Point offset;
+    private Point offset;
 
-    Color floorColor;
+    private Color floorColor;
 
     public WorldRenderer()
     {
@@ -26,13 +27,21 @@ public class WorldRenderer extends JComponent
     public void setWorld(World world)
     {
         this.world = world;
+
+        randeringProperties = new RenderingProperties();
     }
 
     @Override
-    public void paintComponent(Graphics g)
+    public void paint(Graphics g)
     {
         // Draw floor
         g.setColor(floorColor);
         g.fillRect(offset.x, offset.y, world.getWith(), world.getHeight());
+
+        // draw all objects contains in the world
+        for (WorldObject o : world.getObjects())
+        {
+            o.render(g);
+        }
     }
 }

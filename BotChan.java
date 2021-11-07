@@ -14,6 +14,7 @@ class BotChan
         World world;
         WorldRenderer renderer;
 
+        
         try
         {
             // Create a new world
@@ -22,7 +23,6 @@ class BotChan
             world = WorldFactory.createEmptyWorld(worldDimensions);
 
             window.setSize(worldDimensions);
-            window.add(world);
         }
         catch(BadDimensionsException e)
         {
