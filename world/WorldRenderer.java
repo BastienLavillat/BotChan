@@ -2,11 +2,9 @@ package world;
 
 import java.awt.*;
 
-import javax.swing.JComponent;
-
 import world.object.WorldObject;
 
-public class WorldRenderer extends JComponent
+public class WorldRenderer extends StdDrawInstantiable
 {
     private World world;
 
@@ -29,19 +27,5 @@ public class WorldRenderer extends JComponent
         this.world = world;
 
         randeringProperties = new RenderingProperties();
-    }
-
-    @Override
-    public void paint(Graphics g)
-    {
-        // Draw floor
-        g.setColor(floorColor);
-        g.fillRect(offset.x, offset.y, world.getWith(), world.getHeight());
-
-        // draw all objects contains in the world
-        for (WorldObject o : world.getObjects())
-        {
-            o.render(g);
-        }
     }
 }
