@@ -38,7 +38,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,10 +71,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
 
 /**
  *  The {@code StdDraw} class provides a basic capability for
@@ -670,8 +665,8 @@ public class StdDrawInstantiable implements ActionListener, MouseListener, Mouse
         onscreen  = onscreenImage.createGraphics();
         offscreen.scale(2.0, 2.0);  // since we made it 2x as big
 
-        setXscale();
-        setYscale();
+        setXscale(0, width);
+        setYscale(0, height);
         offscreen.setColor(DEFAULT_CLEAR_COLOR);
         offscreen.fillRect(0, 0, width, height);
         setPenColor();
@@ -705,21 +700,8 @@ public class StdDrawInstantiable implements ActionListener, MouseListener, Mouse
         frame.setTitle("Standard Draw");
         frame.pack();
         frame.requestFocusInWindow();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-
-    // create the menu bar (changed to private)
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("File");
-        menuBar.add(menu);
-        JMenuItem menuItem1 = new JMenuItem(" Save...   ");
-        menuItem1.addActionListener(this);
-        // Java 10+: replace getMenuShortcutKeyMask() with getMenuShortcutKeyMaskEx()
-        menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        menu.add(menuItem1);
-        return menuBar;
     }
 
    /***************************************************************************
@@ -1263,20 +1245,21 @@ public class StdDrawInstantiable implements ActionListener, MouseListener, Mouse
      * @throws IllegalArgumentException if either {@code halfWidth} or {@code halfHeight} is negative
      * @throws IllegalArgumentException if any argument is either NaN or infinite
      */
-    public void filledRectangle(double x, double y, double halfWidth, double halfHeight) {
+    public void filledRectangle(double x, double y, double width, double height) {
         validate(x, "x");
         validate(y, "y");
-        validate(halfWidth, "halfWidth");
-        validate(halfHeight, "halfHeight");
-        validateNonnegative(halfWidth, "half width");
-        validateNonnegative(halfHeight, "half height");
+        validate(width, "width");
+        validate(height, "height");
+        validateNonnegative(width, "width");
+        validateNonnegative(height, "height");
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfWidth);
-        double hs = factorY(2*halfHeight);
+        double ws = factorX(width);
+        double hs = factorY(height);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.fill(new Rectangle2D.Double(xs, ys - hs, ws, hs));
+
         draw();
     }
 

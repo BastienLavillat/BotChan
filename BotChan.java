@@ -14,7 +14,7 @@ class BotChan
 
         try
         {
-            renderer = new WorldRenderer();
+            renderer = new WorldRenderer(1);
             
             // Create a new world
             Dimension worldDimensions = World.DIMENSIONS_400x400;
